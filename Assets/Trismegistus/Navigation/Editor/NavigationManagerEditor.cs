@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEditorInternal;
 
 namespace Trismegistus.Navigation
 {
@@ -79,15 +80,24 @@ void OnEnable()
             serializedObject.ApplyModifiedProperties();*/
 
             //Drawing "Closed spline" Toggle
+            EditorGUI.BeginChangeCheck();
             {
-                EditorGUI.BeginChangeCheck();
                 navManager.IsCycled = EditorGUILayout.Toggle("Closed spline", navManager.IsCycled);
-                
-            
-            navManager.StickToColliders = EditorGUILayout.Toggle("Stick to colliders", navManager.StickToColliders);
-            if (EditorGUI.EndChangeCheck())
-                navManager.CalculateWaypoints();
+
+
+                navManager.StickToColliders = EditorGUILayout.Toggle("Stick to colliders", navManager.StickToColliders);
+
+
+                if (navManager.StickToColliders)
+                {
+                    LayerMask tempMask = EditorGUILayout.MaskField("Raycast mask",
+                        InternalEditorUtility.LayerMaskToConcatenatedLayersMask(navManager.LayerMask),
+                        InternalEditorUtility.layers);
+
+                    navManager.LayerMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
+                }
             }
+            if (EditorGUI.EndChangeCheck()) navManager.CalculateWaypoints();
 
             serializedObject.Update();
             var onClick = serializedObject.FindProperty("WaypointChanged");

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Trismegistus.Navigation.Iterator;
 using UnityEditor;
@@ -39,6 +40,12 @@ namespace Trismegistus.Navigation
         {
             get => NavigationData.Iterations;
             set => NavigationData.Iterations = value;
+        }
+
+        public LayerMask LayerMask
+        {
+            get => NavigationData.LayerMask;
+            set => NavigationData.LayerMask = value;
         }
 
         public UnityEvent WaypointChanged;
@@ -210,7 +217,7 @@ namespace Trismegistus.Navigation
                 NavigationData.Waypoints[i].NavPoint = navPoints[i];
             }
 
-            DynamicWaypoints = CalculateWaypoints(_waypoints, Iterations, StickToColliders, IsCycled);
+            DynamicWaypoints = CalculateWaypoints(_waypoints, Iterations, StickToColliders, IsCycled, LayerMask);
             var dynNavPoints = CalculateNavPoints(IsCycled, DynamicWaypoints.Select(x => x.Position).ToArray());
             for (var i = 0; i < DynamicWaypoints.Length; i++)
             {
@@ -223,7 +230,7 @@ namespace Trismegistus.Navigation
 #endif
         }
         public static WaypointEntity[] CalculateWaypoints(List<WaypointEntity> list, int iterations,
-            bool stickToColliders, bool cycled)
+            bool stickToColliders, bool cycled, LayerMask layerMask)
         {
             var distances = list.Select((t, i) => (t.Position - list[(i + 1) % list.Count].Position).magnitude)
                 .ToList();
@@ -237,7 +244,7 @@ namespace Trismegistus.Navigation
                 
                 if (stickToColliders)
                 {
-                    waypointEntity.Position = AdjustYToCollider(waypointEntity.Position);
+                    waypointEntity.Position = AdjustYToCollider(waypointEntity.Position, layerMask);
                 }
 
                 p.Add(waypointEntity.Position);
@@ -265,7 +272,7 @@ namespace Trismegistus.Navigation
 
                         if (stickToColliders)
                         {
-                            position = AdjustYToCollider(position);
+                            position = AdjustYToCollider(position, layerMask);
                         }
 
                         var waypointEntity = new WaypointEntity(position, true) {NavPoint = navPoint};
@@ -331,10 +338,12 @@ namespace Trismegistus.Navigation
 
             return points.ToArray();
         }
-        private static Vector3 AdjustYToCollider(Vector3 pos)
+
+        
+        private static Vector3 AdjustYToCollider(Vector3 pos, LayerMask layerMask)
         {
             var ray = new Ray(pos + Vector3.up * 2, Vector3.down);
-            var size = Physics.RaycastNonAlloc(ray, Hits);
+            var size = Physics.RaycastNonAlloc(ray, Hits, Single.PositiveInfinity, layerMask);
 
             /*var hit = hits?.Where(x => x.collider != waypointEntity.Collider)?.OrderBy(x => x.distance)?
                         .First();*/
