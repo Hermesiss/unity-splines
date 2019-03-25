@@ -230,7 +230,6 @@ namespace Trismegistus.Navigation
             
             foreach (var waypointEntity in list)
             {
-                
                 if (stickToColliders)
                 {
                     waypointEntity.Position = AdjustYToCollider(waypointEntity.Position, layerMask);
@@ -238,7 +237,7 @@ namespace Trismegistus.Navigation
 
                 p.Add(waypointEntity.Position);
             }
-
+            
             var curve = new List<WaypointEntity>();
 
             var baseNavPoints = CalculateNavPoints(cycled, p);
@@ -329,8 +328,8 @@ namespace Trismegistus.Navigation
         
         private static Vector3 AdjustYToCollider(Vector3 pos, LayerMask layerMask)
         {
-            var ray = new Ray(pos + Vector3.up * 2, Vector3.down);
-            var size = Physics.RaycastNonAlloc(ray, Hits, Single.PositiveInfinity, layerMask);
+            var ray = new Ray(Vector3.up * 2 +pos, Vector3.down);
+            var size = Physics.RaycastNonAlloc(ray, Hits, float.PositiveInfinity, layerMask);
 
             if (size <= 0) return pos;
             
