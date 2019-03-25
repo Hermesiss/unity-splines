@@ -24,12 +24,6 @@ namespace Trismegistus.Navigation
             set => NavigationData.StickToColliders = value;
         }
 
-        /*public WaypointBehaviour WaypointPrefab
-        {
-            get => NavigationData.WaypointPrefab;
-            set => NavigationData.WaypointPrefab = value;
-        }*/
-
         public Gradient GradientForWaypoints
         {
             get => NavigationData.GradientForWaypoints;
@@ -48,8 +42,6 @@ namespace Trismegistus.Navigation
             set => NavigationData.LayerMask = value;
         }
 
-        public UnityEvent WaypointChanged;
-        
         public WaypointEntity[] DynamicWaypoints;
 
         private List<WaypointEntity> _waypoints => NavigationData.Waypoints;
@@ -59,7 +51,6 @@ namespace Trismegistus.Navigation
         {
             if (!NavigationData) return; 
             CalculateWaypoints();
-            WaypointChanged = new UnityEvent();
         }
         
         #region MonoBehaviour
@@ -240,8 +231,6 @@ namespace Trismegistus.Navigation
             foreach (var waypointEntity in list)
             {
                 
-                //waypointEntity.Position = waypointEntity.Position;
-                
                 if (stickToColliders)
                 {
                     waypointEntity.Position = AdjustYToCollider(waypointEntity.Position, layerMask);
@@ -258,8 +247,6 @@ namespace Trismegistus.Navigation
             {
                 var navPoint = baseNavPoints[i];
                 
-                //curve.Add(list[i]);
-
                 var localIterations = Mathf.CeilToInt(distances[i] * iterations / 10);
 
                 if (i == baseNavPoints.Length-1 && !cycled) continue;
@@ -345,9 +332,6 @@ namespace Trismegistus.Navigation
             var ray = new Ray(pos + Vector3.up * 2, Vector3.down);
             var size = Physics.RaycastNonAlloc(ray, Hits, Single.PositiveInfinity, layerMask);
 
-            /*var hit = hits?.Where(x => x.collider != waypointEntity.Collider)?.OrderBy(x => x.distance)?
-                        .First();*/
-            
             if (size <= 0) return pos;
             
             var hit = Hits.Take(size).OrderBy(x => x.distance)
@@ -368,7 +352,5 @@ namespace Trismegistus.Navigation
                 waypointEntity.LabelColor = GradientForWaypoints.Evaluate((float) index / (count - 1));
             }
         }
-
-        
     }
 }
