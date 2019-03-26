@@ -20,9 +20,8 @@ namespace Trismegistus.Navigation
         private Mode _currentMode = Mode.None;
         private int _indexFrom = -1;
         
-        private readonly GUIStyle _customGui = new GUIStyle(EditorStyles.helpBox) 
-            {alignment = TextAnchor.MiddleCenter};
-        private readonly Color _guiBackgroundColor = GUI.backgroundColor;
+        private GUIStyle _customGui;
+        private Color _guiBackgroundColor;
 
         #region Editor
 
@@ -30,7 +29,9 @@ namespace Trismegistus.Navigation
         {
             _lastTool = Tools.current;
             Tools.current = Tool.None;
-
+            _customGui = new GUIStyle(EditorStyles.helpBox)
+                {alignment = TextAnchor.MiddleCenter};
+            _guiBackgroundColor = GUI.backgroundColor;
             var navManager = (NavigationManager) target;
 
             if (!navManager.NavigationData) return;
