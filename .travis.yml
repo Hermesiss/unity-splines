@@ -1,0 +1,9 @@
+language: generic
+
+sudo: required
+
+after_success: Ci/commit2packagebranch.sh
+
+branches:
+  except:
+    -unity-package-manager
