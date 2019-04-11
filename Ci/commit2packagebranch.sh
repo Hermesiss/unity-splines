@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "git push"
 
@@ -10,6 +10,7 @@ git archive -o archive.tar HEAD:Assets/Trismegistus
 
 Ci/show_tree.sh
 
+git branch
 git checkout unity-package-manager
 
 Ci/show_tree.sh
