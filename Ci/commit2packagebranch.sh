@@ -1,24 +1,26 @@
 #!/bin/bash
 
 #echo "git push"
+REMOTE = git config --get remote.origin.url
+echo $REMOTE
+COMMIT = git log -1 --pretty=%B
+echo $COMMIT
 
-git archive -o archive.tar HEAD:Assets/Trismegistus
+git clone --depth=5 --branch=unity-package-manager $REMOTE Hermesiss/unity-package-manager
 
-Ci/show_tree.sh
+git archive -o Hermesiss/unity-package-manager/archive.tar HEAD:Assets/Trismegistus
+#Ci/show_tree.sh
 
-git fetch
-git branch
-git checkout unity-package-manager
-
-Ci/show_tree.sh
+cd Hermesiss/unity-package-manager
 
 tar -xf archive.tar
 rm archive.tar
+
 git add -A
 
 git diff
 
-Ci/show_tree.sh
+#Ci/show_tree.sh
 
 #git config --global user.email "travis@travis-ci.org"
 #git config --global user.name "Travis CI"
