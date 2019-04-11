@@ -2,21 +2,23 @@
 
 echo "git push"
 
-ci/show_tree.sh
+ls
+
+Ci/show_tree.sh
 
 git archive -o archive.tar HEAD:Assets/Trismegistus
 
-ci/show_tree.sh
+Ci/show_tree.sh
 
 git checkout unity-package-manager
 
-ci/show_tree.sh
+Ci/show_tree.sh
 
 tar -xf archive.tar
 rm archive.tar
 git add -A
 
-ci/show_tree.sh
+Ci/show_tree.sh
 
 #git config --global user.email "travis@travis-ci.org"
 #git config --global user.name "Travis CI"
