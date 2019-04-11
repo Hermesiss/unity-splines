@@ -17,11 +17,16 @@ cd ../unity-package-manager
 
 ls
 
-tar -xf archive.tar
+echo "Archive content:"
+tar -tf archive.tar
+tar -xf archive.tar --overwrite
 rm archive.tar
 
 git add -A
 
+git config --get remote.origin.url
+git log -1 --pretty=%B
+echo "Diffs:"
 git diff
 
 #Ci/show_tree.sh
