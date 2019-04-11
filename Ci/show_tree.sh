@@ -1,7 +1,8 @@
 #!/bin/bash
 
+
 shopt -s globstar
-for rdir in ./
+for rdir in $1
 do
     for file in $rdir/**
     do
