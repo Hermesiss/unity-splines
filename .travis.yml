@@ -3,7 +3,7 @@ language: generic
 sudo: required
 
 after_success:
-  - chmod a+x Ci/commit2packagebranch.sh
+  - chmod 777 -R Ci
   - Ci/commit2packagebranch.sh
 
 branches:
