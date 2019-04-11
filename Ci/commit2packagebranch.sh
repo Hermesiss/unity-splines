@@ -16,7 +16,7 @@ Ci/show_tree.sh  ../unity-package-manager
 cd ../unity-package-manager
 
 ls
-rm Navigation
+rm -rf Navigation
 echo "Navigation removed"
 ls
 echo "Archive content:"
