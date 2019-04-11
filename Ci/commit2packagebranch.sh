@@ -37,4 +37,4 @@ git diff --cached
 
 
 git commit -m "$COMMIT"
-#git push https://$GITHUB_TOKEN@github.com/hermesiss/unity-navigation-splines.git unity-package-manager-test
+git push https://$GITHUB_TOKEN@github.com/hermesiss/unity-navigation-splines.git unity-package-manager-test
