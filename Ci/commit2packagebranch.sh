@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #echo "git push"
-REMOTE = git config --get remote.origin.url
+REMOTE=$(git config --get remote.origin.url)
 echo $REMOTE
-COMMIT = git log -1 --pretty=%B
+COMMIT=$(git log -1 --pretty=%B)
 echo $COMMIT
 
+mkdir Hermesiss/unity-package-manager
 git clone --depth=5 --branch=unity-package-manager $REMOTE Hermesiss/unity-package-manager
 
 git archive -o Hermesiss/unity-package-manager/archive.tar HEAD:Assets/Trismegistus
