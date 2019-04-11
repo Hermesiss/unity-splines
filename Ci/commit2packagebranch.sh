@@ -16,12 +16,14 @@ Ci/show_tree.sh  ../unity-package-manager
 cd ../unity-package-manager
 
 ls
-
+rm Navigation
+echo "Navigation removed"
+ls
 echo "Archive content:"
 tar -tf archive.tar
 tar -xf archive.tar --overwrite
 rm archive.tar
-
+ls
 git add -A
 
 git config --get remote.origin.url
