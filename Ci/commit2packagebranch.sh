@@ -7,13 +7,15 @@ COMMIT=$(git log -1 --pretty=%B)
 echo $COMMIT
 
 mkdir ../unity-package-manager
-git clone --depth=5 --branch=unity-package-manager $REMOTE Hermesiss/unity-package-manager
+git clone --depth=5 --branch=unity-package-manager $REMOTE ../unity-package-manager
 
 git archive -o ../unity-package-manager/archive.tar HEAD:Assets/Trismegistus
 
-Ci/show_tree.sh $(realpath ../../Hermesiss/unity-package-manager)
+Ci/show_tree.sh  ../unity-package-manager
 
 cd ../unity-package-manager
+
+ls
 
 tar -xf archive.tar
 rm archive.tar
