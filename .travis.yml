@@ -4,8 +4,8 @@ sudo: required
 
 after_success:
   - chmod 777 -R Ci
-  - Ci/commit2packagebranch.sh
+  - Ci/move_to_packagebranch.sh
 
 branches:
-  except:
-    - unity-package-manager
+  only:
+    - master
