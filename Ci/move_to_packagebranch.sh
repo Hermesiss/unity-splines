@@ -46,12 +46,8 @@ git add -A
 echo "Diffs:"
 git diff --cached
 
-#Ci/show_tree.sh
-
-#git config --global user.email "travis@travis-ci.org"
-#git config --global user.name "Travis CI"
-#git config --global push.default current
-
+git config --global user.email "travis@travis-ci.org"
+git config --global user.name "Travis CI"
 
 git commit -m "$COMMIT"
-git push https://$GITHUB_TOKEN@github.com/hermesiss/unity-navigation-splines.git unity-package-manager-test
+git push https://$GITHUB_TOKEN@${REMOTE#*//} $PUSH_BRANCH
