@@ -6,18 +6,26 @@ echo $REMOTE
 COMMIT=$(git log -1 --pretty=%B)
 echo $COMMIT
 
-mkdir ../unity-package-manager
-git clone --branch=unity-package-manager $REMOTE ../unity-package-manager
 
-git archive -o ../unity-package-manager/archive.tar HEAD:Assets/Trismegistus
+mkdir ../$TARGET_BRANCH
+git clone --branch=$TARGET_BRANCH $REMOTE ../$TARGET_BRANCH
 
-Ci/show_tree.sh  ../unity-package-manager
+git archive -o ../$TARGET_BRANCH/archive.tar HEAD:$FOLDER_TO_EXPORT
 
-cd ../unity-package-manager
+Ci/show_tree.sh  ../$TARGET_BRANCH
+
+cd ../$TARGET_BRANCH
 
 ls
-git branch unity-package-manager-test $(git rev-parse HEAD)
-git checkout unity-package-manager-test
+
+if $TEST_RUN ; then
+    echo "Test build"
+    TEST_BRANCH=upm_test
+    if [ $(git branch $TEST_BRANCH --list) != $TEST_BRANCH ] ; then git branch $TEST_BRANCH $(git rev-parse HEAD); fi
+    git checkout -B $TARGET_BRANCH
+fi
+
+
 echo "Archive content:"
 tar -tf archive.tar
 tar -xf archive.tar --overwrite
