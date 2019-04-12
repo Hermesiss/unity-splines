@@ -28,12 +28,10 @@ else
     PUSH_BRANCH=$TARGET_BRANCH
 fi
 
-
 echo "Archive content:"
 tar -tf archive.tar
 tar -xf archive.tar --overwrite
 rm archive.tar
-ls
 
 git add -A
 
@@ -43,10 +41,6 @@ git diff --cached
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 
-git log -2
-
 git commit -m "$COMMIT"
-
-git log -2
 
 git push https://$GITHUB_TOKEN@${REMOTE#*//} $PUSH_BRANCH
