@@ -21,13 +21,7 @@ ls
 echo "TEST_RUN is $TEST_RUN"
 if $TEST_RUN ; then
     echo "Test build"
-    TEST_BRANCH=upm_test
-    if [ -z $(git branch $TEST_BRANCH --list) ] ; then 
-        echo "branch $TEST_BRANCH not exists, creating new at $(git rev-parse HEAD)"
-        git branch $TEST_BRANCH $(git rev-parse HEAD)
-    else
-        echo "branch $TEST_BRANCH exists"
-    fi
+    TEST_BRANCH=upm_test    
     git checkout -B $TARGET_BRANCH
     PUSH_BRANCH=$TEST_BRANCH
 else    
@@ -49,5 +43,10 @@ git diff --cached
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 
+git log -2
+
 git commit -m "$COMMIT"
+
+git log -2
+
 git push https://$GITHUB_TOKEN@${REMOTE#*//} $PUSH_BRANCH
