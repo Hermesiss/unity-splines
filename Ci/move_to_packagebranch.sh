@@ -22,7 +22,7 @@ echo "TEST_RUN is $TEST_RUN"
 if $TEST_RUN ; then
     echo "Test build"
     TEST_BRANCH=upm_test
-    if [ $(git branch $TEST_BRANCH --list)!=$TEST_BRANCH ] ; then 
+    if [ -z $(git branch $TEST_BRANCH --list) ] ; then 
         echo "branch $TEST_BRANCH not exists, creating new at $(git rev-parse HEAD)"
         git branch $TEST_BRANCH $(git rev-parse HEAD)
     else
