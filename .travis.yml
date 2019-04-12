@@ -1,6 +1,7 @@
 language: generic
 
 env:
+  global:
     - MASTER_TARGET_BRANCH=upm
     - DEVELOP_TARGET_BRANCH=upm-dev
     - TARGET_BRANCH
