@@ -18,6 +18,7 @@ cd ../$TARGET_BRANCH
 
 ls
 
+echo "TEST_RUN is $TEST_RUN"
 if $TEST_RUN ; then
     echo "Test build"
     TEST_BRANCH=upm_test

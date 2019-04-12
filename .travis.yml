@@ -1,11 +1,7 @@
 language: generic
 
 env:
-  - MASTER_TARGET_BRANCH=upm
-  - DEVELOP_TARGET_BRANCH=upm-dev
-  - TARGET_BRANCH=not_defined
-  - TEST_RUN=false
-  - FOLDER_TO_EXPORT=Assets/Trismegistus
+  - MASTER_TARGET_BRANCH=upm DEVELOP_TARGET_BRANCH=upm-dev TARGET_BRANCH=not_defined TEST_RUN=false FOLDER_TO_EXPORT=Assets/Trismegistus
 
 sudo: required
 
