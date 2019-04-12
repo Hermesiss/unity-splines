@@ -1,7 +1,6 @@
 language: generic
 
 env:
-  global:
     - MASTER_TARGET_BRANCH=upm
     - DEVELOP_TARGET_BRANCH=upm-dev
     - TARGET_BRANCH
@@ -21,6 +20,8 @@ before_install:
         TEST_RUN=true
       fi 
       echo "TARGET_BRANCH is $TARGET_BRANCH"
+      echo "MASTER_TARGET_BRANCH is $MASTER_TARGET_BRANCH"
+      echo "DEVELOP_TARGET_BRANCH is $DEVELOP_TARGET_BRANCH"
 
 after_success:
   - chmod 777 -R Ci
