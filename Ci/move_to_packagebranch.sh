@@ -6,7 +6,7 @@ echo $REMOTE
 COMMIT=$(git log -1 --pretty=%B)
 echo $COMMIT
 
-
+echo "TARGET_BRANCH is $TARGET_BRANCH"
 mkdir ../$TARGET_BRANCH
 git clone --branch=$TARGET_BRANCH $REMOTE ../$TARGET_BRANCH
 
