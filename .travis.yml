@@ -15,15 +15,8 @@ before_install:
         TARGET_BRANCH=$DEVELOP_TARGET_BRANCH
         TEST_RUN=true
       fi 
-      echo "TARGET_BRANCH is $TARGET_BRANCH"
-      echo "MASTER_TARGET_BRANCH is $MASTER_TARGET_BRANCH"
-      echo "DEVELOP_TARGET_BRANCH is $DEVELOP_TARGET_BRANCH"
 
 after_success:
-  - echo "after_success"
-  - echo "TARGET_BRANCH is $TARGET_BRANCH"
-  - echo "MASTER_TARGET_BRANCH is $MASTER_TARGET_BRANCH"
-  - echo "DEVELOP_TARGET_BRANCH is $DEVELOP_TARGET_BRANCH"
   - chmod 777 -R Ci
   - Ci/move_to_packagebranch.sh
 
