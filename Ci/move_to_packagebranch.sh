@@ -22,7 +22,7 @@ echo "TEST_RUN is $TEST_RUN"
 if $TEST_RUN ; then
     echo "Test build"
     TEST_BRANCH=upm_test    
-    git checkout -B $TARGET_BRANCH
+    git checkout -B $TEST_BRANCH
     PUSH_BRANCH=$TEST_BRANCH
 else    
     PUSH_BRANCH=$TARGET_BRANCH
