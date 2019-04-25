@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -x
+
 #echo "git push"
 REMOTE=$(git config --get remote.origin.url)
 echo $REMOTE
@@ -13,6 +16,7 @@ ARCHIVE_PATH=$(pwd)
 
 mkdir ../$TARGET_BRANCH
 cd ../$TARGET_BRANCH
+
 if [ "$(git ls-remote $REMOTE $TARGET_BRANCH | wc -l)" != 1 ]; then
     git clone --depth=1 $REMOTE
     git checkout -b $TARGET_BRANCH
@@ -20,6 +24,7 @@ else
     git clone --branch=$TARGET_BRANCH $REMOTE
 fi
 
+shopt -s extglob
 rm ./ -dr -- !(.git)
 
 mv $ARCHIVE_PATH/archive.tar archive.tar
