@@ -8,23 +8,18 @@ echo $COMMIT
 
 echo "TARGET_BRANCH is $TARGET_BRANCH"
 mkdir ../$TARGET_BRANCH
+cd ../$TARGET_BRANCH
 
 if [ "$(git ls-remote origin $TARGET_BRANCH | wc -l)" != 1]; then
     git clone --depth=1 $REMOTE
     git checkout -b $TARGET_BRANCH
 else
-    git clone --branch=$TARGET_BRANCH $REMOTE ../$TARGET_BRANCH
+    git clone --branch=$TARGET_BRANCH $REMOTE
 fi
 
 rm ../$TARGET_BRANCH/* -dr
 
-git archive -o ../$TARGET_BRANCH/archive.tar HEAD:$FOLDER_TO_EXPORT
-
-Ci/show_tree.sh  ../$TARGET_BRANCH
-
-cd ../$TARGET_BRANCH
-
-ls
+git archive -o archive.tar HEAD:$FOLDER_TO_EXPORT
 
 echo "Archive content:"
 tar -tf archive.tar
@@ -41,4 +36,4 @@ git config --global user.name "Travis CI"
 
 git commit -m "$COMMIT"
 
-git push https://$GITHUB_TOKEN@${REMOTE#*//} $PUSH_BRANCH
+git push https://$GITHUB_TOKEN@${REMOTE#*//} $TARGET_BRANCH
