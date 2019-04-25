@@ -20,7 +20,7 @@ else
     git clone --branch=$TARGET_BRANCH $REMOTE
 fi
 
-rm ../$TARGET_BRANCH/* -dr
+rm ./ -dr -- !(.git)
 
 mv $ARCHIVE_PATH/archive.tar archive.tar
 
