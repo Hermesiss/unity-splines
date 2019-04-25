@@ -8,7 +8,13 @@ echo $COMMIT
 
 echo "TARGET_BRANCH is $TARGET_BRANCH"
 mkdir ../$TARGET_BRANCH
-git clone --branch=$TARGET_BRANCH $REMOTE ../$TARGET_BRANCH
+
+if [ "$(git ls-remote origin $TARGET_BRANCH | wc -l)" != 1]; then
+    git clone --depth=1 $REMOTE
+    git checkout -b $TARGET_BRANCH
+else
+    git clone --branch=$TARGET_BRANCH $REMOTE ../$TARGET_BRANCH
+fi
 
 rm ../$TARGET_BRANCH/* -dr
 
