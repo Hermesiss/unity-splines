@@ -10,6 +10,8 @@ echo "TARGET_BRANCH is $TARGET_BRANCH"
 mkdir ../$TARGET_BRANCH
 git clone --branch=$TARGET_BRANCH $REMOTE ../$TARGET_BRANCH
 
+rm ../$TARGET_BRANCH/* -dr
+
 git archive -o ../$TARGET_BRANCH/archive.tar HEAD:$FOLDER_TO_EXPORT
 
 Ci/show_tree.sh  ../$TARGET_BRANCH
