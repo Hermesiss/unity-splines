@@ -13,7 +13,7 @@ ARCHIVE_PATH=$(pwd)
 
 mkdir ../$TARGET_BRANCH
 cd ../$TARGET_BRANCH
-if [ "$(git ls-remote origin $TARGET_BRANCH | wc -l)" != 1 ]; then
+if [ "$(git ls-remote $REMOTE $TARGET_BRANCH | wc -l)" != 1 ]; then
     git clone --depth=1 $REMOTE
     git checkout -b $TARGET_BRANCH
 else

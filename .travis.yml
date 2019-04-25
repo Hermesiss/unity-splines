@@ -7,15 +7,15 @@ sudo: required
 
 before_install:
   - |
-      if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then 
-        TARGET_BRANCH=$TEST_TARGET_BRANCH        
+      if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+        TARGET_BRANCH=$TEST_TARGET_BRANCH
       elif [ "$TRAVIS_BRANCH" = "develop" ]; then
         TARGET_BRANCH=$DEVELOP_TARGET_BRANCH
       elif [ "$TRAVIS_BRANCH" = "master" ]; then
         TARGET_BRANCH=$MASTER_TARGET_BRANCH
-      else 
-        TARGET_BRANCH=$TEST_TARGET_BRANCH        
-      fi 
+      else
+        TARGET_BRANCH=$TEST_TARGET_BRANCH
+      fi
 
 after_success:
   - chmod 777 -R Ci
