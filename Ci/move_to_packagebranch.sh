@@ -7,10 +7,13 @@ COMMIT=$(git log -1 --pretty=%B)
 echo $COMMIT
 
 echo "TARGET_BRANCH is $TARGET_BRANCH"
+
+git archive -o archive.tar HEAD:$FOLDER_TO_EXPORT
+ARCHIVE_PATH=$(pwd)
+
 mkdir ../$TARGET_BRANCH
 cd ../$TARGET_BRANCH
-
-if [ "$(git ls-remote origin $TARGET_BRANCH | wc -l)" != 1]; then
+if [ "$(git ls-remote origin $TARGET_BRANCH | wc -l)" != 1 ]; then
     git clone --depth=1 $REMOTE
     git checkout -b $TARGET_BRANCH
 else
@@ -19,9 +22,10 @@ fi
 
 rm ../$TARGET_BRANCH/* -dr
 
-git archive -o archive.tar HEAD:$FOLDER_TO_EXPORT
+mv $ARCHIVE_PATH/archive.tar archive.tar
 
 echo "Archive content:"
+
 tar -tf archive.tar
 tar -xf archive.tar --overwrite
 rm archive.tar
